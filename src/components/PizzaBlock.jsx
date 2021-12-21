@@ -1,23 +1,28 @@
 import React from 'react';
 
-function PizzaBlock() {
+function PizzaBlock({ name, photo, types, sizes, expectedTypes, expectedSizes }) {
   return (
     <div class="pizza-block">
-      <img
-        class="pizza-block__image"
-        src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-        alt="Pizza"
-      />
-      <h4 class="pizza-block__title">Чизбургер-пицца</h4>
+      <img class="pizza-block__image" src={photo} alt="Pizza" />
+      <h4 class="pizza-block__title">{name}</h4>
       <div class="pizza-block__selector">
         <ul>
-          <li class="active">тонкое</li>
-          <li>традиционное</li>
+          {expectedTypes.map((type, index) => {
+            if (types.some((item) => item === type)) {
+              return <li>{type}</li>;
+            } else {
+              return <li className="untouchable">{type}</li>;
+            }
+          })}
         </ul>
         <ul>
-          <li class="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {expectedSizes.map((size, index) => {
+            if (sizes.some((item) => item === size)) {
+              return <li>{size}</li>;
+            } else {
+              return <li className="untouchable">{size}</li>;
+            }
+          })}
         </ul>
       </div>
       <div class="pizza-block__bottom">

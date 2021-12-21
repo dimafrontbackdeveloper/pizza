@@ -17,6 +17,11 @@ body {
   max-width: 1400px;
 }
 
+.untouchable {
+  pointer-events: none;
+  color: #cbcbcb;
+}
+
 .content {
   padding: 40px 0;
 
