@@ -1,15 +1,28 @@
 import React from 'react';
+import classNames from 'classnames';
 
 function PizzaBlock({ name, photo, types, sizes, expectedTypes, expectedSizes }) {
+  const [activeType, setActiveType] = React.useState(types[0]);
+
+  const changeActiveType = (type) => {
+    setActiveType(type);
+  };
+
   return (
     <div class="pizza-block">
       <img class="pizza-block__image" src={photo} alt="Pizza" />
       <h4 class="pizza-block__title">{name}</h4>
       <div class="pizza-block__selector">
         <ul>
-          {expectedTypes.map((type, index) => {
+          {expectedTypes.map((type) => {
             if (types.some((item) => item === type)) {
-              return <li>{type}</li>;
+              return (
+                <li
+                  className={classNames({ active: type === activeType })}
+                  onClick={() => changeActiveType(type)}>
+                  {type}
+                </li>
+              );
             } else {
               return <li className="untouchable">{type}</li>;
             }
