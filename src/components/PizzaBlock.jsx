@@ -3,9 +3,14 @@ import classNames from 'classnames';
 
 function PizzaBlock({ name, photo, types, sizes, expectedTypes, expectedSizes }) {
   const [activeType, setActiveType] = React.useState(types[0]);
+  const [activeSize, setActiveSize] = React.useState(sizes[0]);
 
   const changeActiveType = (type) => {
     setActiveType(type);
+  };
+
+  const changeActiveSize = (size) => {
+    setActiveSize(size);
   };
 
   return (
@@ -29,9 +34,15 @@ function PizzaBlock({ name, photo, types, sizes, expectedTypes, expectedSizes })
           })}
         </ul>
         <ul>
-          {expectedSizes.map((size, index) => {
+          {expectedSizes.map((size) => {
             if (sizes.some((item) => item === size)) {
-              return <li>{size}</li>;
+              return (
+                <li
+                  className={classNames({ active: size === activeSize })}
+                  onClick={() => changeActiveSize(size)}>
+                  {size}
+                </li>
+              );
             } else {
               return <li className="untouchable">{size}</li>;
             }

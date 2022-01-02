@@ -1,9 +1,30 @@
+import classNames from 'classnames';
 import React from 'react';
+import { useState } from 'react';
 
 function Sort() {
+  const sortItems = ['популярности', 'цене', 'алфавиту'];
+  const [isActivePopup, setIsActivePopup] = useState(false);
+  const [activeSortItem, setActiveSortItem] = useState(0);
+  const [sortBy, setSortBy] = useState(sortItems[0]);
+
+  const changeIsActivePopup = () => {
+    setIsActivePopup((prev) => !prev);
+  };
+
+  const changeSortBy = (index) => {
+    setActiveSortItem(index);
+    changeIsActivePopup(false);
+    setSortBy(sortItems[index]);
+  };
+
   return (
     <div class="sort">
-      <div class="sort__label">
+      <div
+        class={classNames('sort__label', {
+          'sort__label--active': isActivePopup,
+        })}
+        onClick={changeIsActivePopup}>
         <svg
           width="10"
           height="6"
@@ -16,15 +37,25 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        <span>{sortBy}</span>
       </div>
-      <div class="sort__popup">
-        <ul>
-          <li class="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
-      </div>
+      {isActivePopup && (
+        <div class="sort__popup">
+          <ul>
+            {sortItems.map((sortBy, index) => {
+              return (
+                <li
+                  className={classNames({
+                    active: index === activeSortItem,
+                  })}
+                  onClick={() => changeSortBy(index)}>
+                  {sortBy}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
