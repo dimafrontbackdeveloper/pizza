@@ -1,13 +1,17 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setActiveCategory } from '../redux/actions/homeActions';
 
 function Categories() {
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-  const [activeCategory, setActiveCategory] = useState(0);
+  const activeCategory = useSelector(({ homeReducer }) => homeReducer.activeCategory);
+  const dispatch = useDispatch();
 
   const changeActiveCategory = (category) => {
-    setActiveCategory(category);
+    dispatch(setActiveCategory(category));
   };
 
   return (
