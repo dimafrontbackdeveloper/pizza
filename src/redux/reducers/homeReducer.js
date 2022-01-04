@@ -1,6 +1,7 @@
 const initialState = {
   pizzas: [],
   activeCategory: 0,
+  sortBy: 'популярности',
 };
 
 const homeReducer = (state = initialState, action) => {
@@ -16,6 +17,13 @@ const homeReducer = (state = initialState, action) => {
         ...state,
         activeCategory: action.payload,
       };
+
+    case 'SET_SORT_BY':
+      return {
+        ...state,
+        sortBy: action.payload,
+      };
+
     default:
       return state;
   }

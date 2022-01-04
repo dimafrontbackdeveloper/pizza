@@ -1,21 +1,22 @@
 import classNames from 'classnames';
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSortBy } from '../redux/actions/homeActions';
 
 function Sort() {
   const sortItems = ['популярности', 'цене', 'алфавиту'];
   const [isActivePopup, setIsActivePopup] = useState(false);
-  const [activeSortItem, setActiveSortItem] = useState(0);
-  const [sortBy, setSortBy] = useState(sortItems[0]);
+  const dispatch = useDispatch();
+  const sortBy = useSelector(({ homeReducer }) => homeReducer.sortBy);
 
   const changeIsActivePopup = () => {
     setIsActivePopup((prev) => !prev);
   };
 
-  const changeSortBy = (index) => {
-    setActiveSortItem(index);
+  const changeSortBy = (sortByItem) => {
     changeIsActivePopup(false);
-    setSortBy(sortItems[index]);
+    dispatch(setSortBy(sortByItem));
   };
 
   return (
@@ -42,14 +43,14 @@ function Sort() {
       {isActivePopup && (
         <div class="sort__popup">
           <ul>
-            {sortItems.map((sortBy, index) => {
+            {sortItems.map((sortByItem) => {
               return (
                 <li
                   className={classNames({
-                    active: index === activeSortItem,
+                    active: sortByItem === sortBy,
                   })}
-                  onClick={() => changeSortBy(index)}>
-                  {sortBy}
+                  onClick={() => changeSortBy(sortByItem)}>
+                  {sortByItem}
                 </li>
               );
             })}

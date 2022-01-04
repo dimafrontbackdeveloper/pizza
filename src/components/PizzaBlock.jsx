@@ -1,7 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { addPizzaAction } from '../redux/actions/cartActions';
 
-function PizzaBlock({ name, photo, types, sizes, expectedTypes, expectedSizes }) {
+function PizzaBlock({ id, name, photo, types, sizes, expectedTypes, expectedSizes, price }) {
+  const dispatch = useDispatch();
   const [activeType, setActiveType] = React.useState(types[0]);
   const [activeSize, setActiveSize] = React.useState(sizes[0]);
 
@@ -11,6 +14,10 @@ function PizzaBlock({ name, photo, types, sizes, expectedTypes, expectedSizes })
 
   const changeActiveSize = (size) => {
     setActiveSize(size);
+  };
+
+  const addPizza = (id, name, type, size, price) => {
+    dispatch(addPizzaAction({ id, name, type, size, price }));
   };
 
   return (
@@ -50,8 +57,10 @@ function PizzaBlock({ name, photo, types, sizes, expectedTypes, expectedSizes })
         </ul>
       </div>
       <div class="pizza-block__bottom">
-        <div class="pizza-block__price">от 395 ₽</div>
-        <div class="button button--outline button--add">
+        <div class="pizza-block__price">от {price} ₽</div>
+        <div
+          class="button button--outline button--add"
+          onClick={() => addPizza(id, name, activeType, activeSize, price)}>
           <svg
             width="12"
             height="12"

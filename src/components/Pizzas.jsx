@@ -10,12 +10,13 @@ function Pizzas() {
   const dispatch = useDispatch();
   const pizzas = useSelector(({ homeReducer }) => homeReducer.pizzas);
   const activeCategory = useSelector(({ homeReducer }) => homeReducer.activeCategory);
+  const sortBy = useSelector(({ homeReducer }) => homeReducer.sortBy);
   const expectedTypes = ['тонкое', 'традиционное'];
   const expectedSizes = [26, 30, 40];
 
   useEffect(async () => {
-    dispatch(fetchPizzas(activeCategory));
-  }, [activeCategory]);
+    dispatch(fetchPizzas(activeCategory, sortBy));
+  }, [activeCategory, sortBy]);
 
   return (
     <>
