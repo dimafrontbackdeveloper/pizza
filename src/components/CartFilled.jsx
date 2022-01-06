@@ -1,9 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { clearAddedPizzas, minusCount, plusCount } from '../redux/actions/cartActions';
 
 function CartFilled({ addedPizzas }) {
   const allPriceOfPizzas = useSelector(({ cartReducer }) => cartReducer.allPriceOfPizzas);
   const allCountOfPizzas = useSelector(({ cartReducer }) => cartReducer.allCountOfPizzas);
+  const dispatch = useDispatch();
+
+  const clearCart = () => {
+    dispatch(clearAddedPizzas());
+  };
+
   return (
     <div class="cart">
       <div class="cart__top">
@@ -75,11 +83,14 @@ function CartFilled({ addedPizzas }) {
             />
           </svg>
 
-          <span>Очистить корзину</span>
+          <span onClick={clearCart}>Очистить корзину</span>
         </div>
       </div>
       <div class="content__items">
         {addedPizzas.map((item) => {
+          if (!item) {
+            return;
+          }
           return (
             <div class="cart__item">
               <div class="cart__item-img">
@@ -96,7 +107,11 @@ function CartFilled({ addedPizzas }) {
                 </p>
               </div>
               <div class="cart__item-count">
-                <div class="button button--outline button--circle cart__item-count-minus">
+                <div
+                  class="button button--outline button--circle cart__item-count-minus"
+                  onClick={() => {
+                    dispatch(minusCount(item.id, item.size, item.type, item.price));
+                  }}>
                   <svg
                     width="10"
                     height="10"
@@ -114,7 +129,11 @@ function CartFilled({ addedPizzas }) {
                   </svg>
                 </div>
                 <b>{item.count}</b>
-                <div class="button button--outline button--circle cart__item-count-plus">
+                <div
+                  class="button button--outline button--circle cart__item-count-plus"
+                  onClick={() => {
+                    dispatch(plusCount(item.id, item.size, item.type, item.price));
+                  }}>
                   <svg
                     width="10"
                     height="10"

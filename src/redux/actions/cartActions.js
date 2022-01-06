@@ -4,15 +4,33 @@ export const addPizzaAction = (pizza) => {
     payload: pizza,
   };
 };
-export const setPizzaPrice = (price) => {
+
+export const clearAddedPizzas = () => {
   return {
-    type: 'SET_PIZZAS_PRICE',
-    payload: price,
+    type: 'CLEAR_ADDED_PIZZAS',
   };
 };
-export const setPizzaCount = (count) => {
+
+export const plusCount = (id, size, type, price) => {
   return {
-    type: 'SET_PIZZAS_COUNT',
-    payload: count,
+    type: 'PLUS_COUNT',
+    payload: {
+      id,
+      size,
+      type,
+      price,
+    },
+  };
+};
+
+export const minusCount = (id, size, type, price) => {
+  return {
+    type: 'MINUS_COUNT',
+    payload: {
+      id,
+      size,
+      type,
+      price,
+    },
   };
 };

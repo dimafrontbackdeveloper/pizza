@@ -1,12 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addPizzaAction } from '../redux/actions/cartActions';
 
 function PizzaBlock({ id, name, photo, types, sizes, expectedTypes, expectedSizes, price }) {
   const dispatch = useDispatch();
   const [activeType, setActiveType] = React.useState(types[0]);
   const [activeSize, setActiveSize] = React.useState(sizes[0]);
+  const addedPizzas = useSelector(({ cartReducer }) => cartReducer.addedPizzas);
+  let countOfPizza = 0;
+  addedPizzas.forEach((item) => {
+    if (item.id === id) {
+      countOfPizza += item.count;
+    }
+  });
 
   const changeActiveType = (type) => {
     setActiveType(type);
@@ -73,7 +80,7 @@ function PizzaBlock({ id, name, photo, types, sizes, expectedTypes, expectedSize
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          {countOfPizza > 0 && <i>{countOfPizza}</i>}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Link, Route, Routes } from 'react-router-dom';
 import './App.css';
 import pizzaLogo from './img/pizza-logo.svg';
@@ -5,6 +6,9 @@ import Cart from './pages/Cart';
 import Home from './pages/Home';
 
 function App() {
+  const allCountOfPizzas = useSelector(({ cartReducer }) => cartReducer.allCountOfPizzas);
+  const allPriceOfPizzas = useSelector(({ cartReducer }) => cartReducer.allPriceOfPizzas);
+
   return (
     <div className="App">
       <div class="wrapper">
@@ -19,7 +23,7 @@ function App() {
             </Link>
             <div class="header__cart">
               <Link class="button button--cart" to="/cart">
-                <span>520 ₽</span>
+                <span>{allPriceOfPizzas} ₽</span>
                 <div class="button__delimiter"></div>
                 <svg
                   width="18"
@@ -49,7 +53,7 @@ function App() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <span>3</span>
+                <span>{allCountOfPizzas}</span>
               </Link>
             </div>
           </div>
