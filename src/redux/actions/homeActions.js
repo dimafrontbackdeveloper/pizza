@@ -11,7 +11,7 @@ export const fetchPizzas = (activeCategory, sortBy) => {
       dispatch(setPizzas(data));
     } else {
       const { data } = await axios(
-        `http://localhost:3000/pizzas?category=${activeCategory}&?_sort=${
+        `http://localhost:3000/pizzas?category=${activeCategory}&_sort=${
           sortBy === 'популярности' ? 'popularity' : sortBy === 'цене' ? 'price' : 'name'
         }`,
       );
