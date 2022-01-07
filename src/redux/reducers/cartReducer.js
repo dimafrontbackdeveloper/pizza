@@ -62,6 +62,7 @@ function cartReducer(state = initialState, action) {
             item.size === action.payload.size &&
             item.type === action.payload.type
           ) {
+            console.log('find');
             return {
               ...item,
               count: item.count + 1,

@@ -152,7 +152,7 @@ function CartFilled({ addedPizzas }) {
                 </div>
               </div>
               <div class="cart__item-price">
-                <b>{item.price} ₽</b>
+                <b>{item.price * item.count} ₽</b>
               </div>
               <div
                 class="cart__item-remove"
