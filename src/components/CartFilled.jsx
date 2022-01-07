@@ -14,9 +14,9 @@ function CartFilled({ addedPizzas }) {
   };
 
   return (
-    <div class="cart">
-      <div class="cart__top">
-        <h2 class="content__title">
+    <div className="cart">
+      <div className="cart__top">
+        <h2 className="content__title">
           <svg
             width="18"
             height="18"
@@ -47,7 +47,7 @@ function CartFilled({ addedPizzas }) {
           </svg>
           Корзина
         </h2>
-        <div class="cart__clear">
+        <div className="cart__clear">
           <svg
             width="20"
             height="20"
@@ -87,29 +87,29 @@ function CartFilled({ addedPizzas }) {
           <span onClick={clearCart}>Очистить корзину</span>
         </div>
       </div>
-      <div class="content__items">
+      <div className="content__items">
         {addedPizzas.map((item) => {
           if (!item) {
             return;
           }
           return (
-            <div class="cart__item">
-              <div class="cart__item-img">
+            <div className="cart__item" key={item.id}>
+              <div className="cart__item-img">
                 <img
-                  class="pizza-block__image"
+                  className="pizza-block__image"
                   src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
                   alt="Pizza"
                 />
               </div>
-              <div class="cart__item-info">
+              <div className="cart__item-info">
                 <h3>{item.name}</h3>
                 <p>
                   {item.type}, {item.size} см.
                 </p>
               </div>
-              <div class="cart__item-count">
+              <div className="cart__item-count">
                 <div
-                  class="button button--outline button--circle cart__item-count-minus"
+                  className="button button--outline button--circle cart__item-count-minus"
                   onClick={() => {
                     dispatch(minusCount(item.id, item.size, item.type, item.price));
                   }}>
@@ -131,7 +131,7 @@ function CartFilled({ addedPizzas }) {
                 </div>
                 <b>{item.count}</b>
                 <div
-                  class="button button--outline button--circle cart__item-count-plus"
+                  className="button button--outline button--circle cart__item-count-plus"
                   onClick={() => {
                     dispatch(plusCount(item.id, item.size, item.type, item.price));
                   }}>
@@ -152,16 +152,15 @@ function CartFilled({ addedPizzas }) {
                   </svg>
                 </div>
               </div>
-              <div class="cart__item-price">
+              <div className="cart__item-price">
                 <b>{item.price * item.count} ₽</b>
               </div>
               <div
-                class="cart__item-remove"
+                className="cart__item-remove"
                 onClick={() => {
-                  console.log('click');
                   dispatch(deletePizza(item.id, item.size, item.type, item.price, item.count));
                 }}>
-                <div class="button button--outline button--circle">
+                <div className="button button--outline button--circle">
                   <svg
                     width="10"
                     height="10"
@@ -183,8 +182,8 @@ function CartFilled({ addedPizzas }) {
           );
         })}
       </div>
-      <div class="cart__bottom">
-        <div class="cart__bottom-details">
+      <div className="cart__bottom">
+        <div className="cart__bottom-details">
           <span>
             {' '}
             Всего пицц: <b>{allCountOfPizzas} шт.</b>{' '}
@@ -194,7 +193,7 @@ function CartFilled({ addedPizzas }) {
             Сумма заказа: <b>{allPriceOfPizzas} ₽</b>{' '}
           </span>
         </div>
-        <div class="cart__bottom-buttons">
+        <div className="cart__bottom-buttons">
           <NavLink to="/" className="button button--outline button--add go-back-btn">
             <svg
               width="8"
@@ -213,7 +212,7 @@ function CartFilled({ addedPizzas }) {
 
             <span>Вернуться назад</span>
           </NavLink>
-          <div class="button pay-btn">
+          <div className="button pay-btn">
             <span>Оплатить сейчас</span>
           </div>
         </div>

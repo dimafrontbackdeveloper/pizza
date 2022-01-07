@@ -20,9 +20,9 @@ function Sort() {
   };
 
   return (
-    <div class="sort">
+    <div className="sort">
       <div
-        class={classNames('sort__label', {
+        className={classNames('sort__label', {
           'sort__label--active': isActivePopup,
         })}
         onClick={changeIsActivePopup}>
@@ -41,7 +41,7 @@ function Sort() {
         <span>{sortBy}</span>
       </div>
       {isActivePopup && (
-        <div class="sort__popup">
+        <div className="sort__popup">
           <ul>
             {sortItems.map((sortByItem) => {
               return (

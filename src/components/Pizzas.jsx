@@ -20,8 +20,8 @@ function Pizzas() {
 
   return (
     <>
-      <h2 class="content__title">Все пиццы</h2>
-      <div class="content__items">
+      <h2 className="content__title">Все пиццы</h2>
+      <div className="content__items">
         {pizzas.map((pizza) => {
           return (
             <PizzaBlock

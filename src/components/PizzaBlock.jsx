@@ -30,45 +30,55 @@ function PizzaBlock({ id, name, photo, types, sizes, expectedTypes, expectedSize
   };
 
   return (
-    <div class="pizza-block">
-      <img class="pizza-block__image" src={photo} alt="Pizza" />
-      <h4 class="pizza-block__title">{name}</h4>
-      <div class="pizza-block__selector">
+    <div className="pizza-block">
+      <img className="pizza-block__image" src={photo} alt="Pizza" />
+      <h4 className="pizza-block__title">{name}</h4>
+      <div className="pizza-block__selector">
         <ul>
-          {expectedTypes.map((type) => {
+          {expectedTypes.map((type, index) => {
             if (types.some((item) => item === type)) {
               return (
                 <li
                   className={classNames({ active: type === activeType })}
-                  onClick={() => changeActiveType(type)}>
+                  onClick={() => changeActiveType(type)}
+                  key={`${type}__${index * Math.random()}`}>
                   {type}
                 </li>
               );
             } else {
-              return <li className="untouchable">{type}</li>;
+              return (
+                <li className="untouchable" key={`${type}__${index}`}>
+                  {type}
+                </li>
+              );
             }
           })}
         </ul>
         <ul>
-          {expectedSizes.map((size) => {
+          {expectedSizes.map((size, index) => {
             if (sizes.some((item) => item === size)) {
               return (
                 <li
                   className={classNames({ active: size === activeSize })}
-                  onClick={() => changeActiveSize(size)}>
+                  onClick={() => changeActiveSize(size)}
+                  key={`${size * Math.random()}__${index}`}>
                   {size}
                 </li>
               );
             } else {
-              return <li className="untouchable">{size}</li>;
+              return (
+                <li className="untouchable" key={`${size}__${index}`}>
+                  {size}
+                </li>
+              );
             }
           })}
         </ul>
       </div>
-      <div class="pizza-block__bottom">
-        <div class="pizza-block__price">от {price} ₽</div>
+      <div className="pizza-block__bottom">
+        <div className="pizza-block__price">от {price} ₽</div>
         <div
-          class="button button--outline button--add"
+          className="button button--outline button--add"
           onClick={() => addPizza(id, name, activeType, activeSize, price)}>
           <svg
             width="12"

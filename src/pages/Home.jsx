@@ -6,7 +6,7 @@ import Sort from '../components/Sort';
 function Home() {
   return (
     <div>
-      <div class="content__top">
+      <div className="content__top">
         <Categories />
         <Sort />
       </div>

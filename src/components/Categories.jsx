@@ -15,13 +15,14 @@ function Categories() {
   };
 
   return (
-    <div class="categories">
+    <div className="categories">
       <ul>
         {categories.map((category, index) => {
           return (
             <li
               className={classNames({ active: index === activeCategory })}
-              onClick={() => changeActiveCategory(index)}>
+              onClick={() => changeActiveCategory(index)}
+              key={`${category}__${index}`}>
               {category}
             </li>
           );
