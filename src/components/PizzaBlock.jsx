@@ -5,9 +5,11 @@ import { addPizzaAction } from '../redux/actions/cartActions';
 
 function PizzaBlock({ id, name, photo, types, sizes, expectedTypes, expectedSizes, price }) {
   const dispatch = useDispatch();
+  const addedPizzas = useSelector(({ cartReducer }) => cartReducer.addedPizzas);
+
   const [activeType, setActiveType] = React.useState(types[0]);
   const [activeSize, setActiveSize] = React.useState(sizes[0]);
-  const addedPizzas = useSelector(({ cartReducer }) => cartReducer.addedPizzas);
+
   let countOfPizza = 0;
   addedPizzas.forEach((item) => {
     if (item.id === id) {

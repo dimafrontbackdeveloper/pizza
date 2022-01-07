@@ -8,10 +8,18 @@ function cartReducer(state = initialState, action) {
   switch (action.type) {
     case 'ADD_PIZZA':
       if (
-        state.addedPizzas.find((item) => item.id === action.payload.id) &&
-        state.addedPizzas.find((item) => item.size === action.payload.size) &&
-        state.addedPizzas.find((item) => item.type === action.payload.type)
+        state.addedPizzas.some((item) => {
+          if (
+            item.id === action.payload.id &&
+            item.size === action.payload.size &&
+            item.type === action.payload.type
+          ) {
+            return true;
+          }
+        })
       ) {
+        console.log('find');
+
         return {
           ...state,
           addedPizzas: state.addedPizzas.map((item) => {
@@ -20,6 +28,7 @@ function cartReducer(state = initialState, action) {
               item.size === action.payload.size &&
               item.type === action.payload.type
             ) {
+              console.log('deep find');
               return {
                 ...item,
                 count: item.count + 1,
