@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { clearAddedPizzas, minusCount, plusCount } from '../redux/actions/cartActions';
+import { clearAddedPizzas, deletePizza, minusCount, plusCount } from '../redux/actions/cartActions';
 
 function CartFilled({ addedPizzas }) {
   const allPriceOfPizzas = useSelector(({ cartReducer }) => cartReducer.allPriceOfPizzas);
@@ -154,7 +154,12 @@ function CartFilled({ addedPizzas }) {
               <div class="cart__item-price">
                 <b>{item.price} ₽</b>
               </div>
-              <div class="cart__item-remove">
+              <div
+                class="cart__item-remove"
+                onClick={() => {
+                  console.log('click');
+                  dispatch(deletePizza(item.id, item.size, item.type, item.price, item.count));
+                }}>
                 <div class="button button--outline button--circle">
                   <svg
                     width="10"

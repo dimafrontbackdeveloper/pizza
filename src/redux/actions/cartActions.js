@@ -34,3 +34,16 @@ export const minusCount = (id, size, type, price) => {
     },
   };
 };
+
+export const deletePizza = (id, size, type, price, count) => {
+  return {
+    type: 'DELETE_PIZZA',
+    payload: {
+      id,
+      size,
+      type,
+      price,
+      count,
+    },
+  };
+};

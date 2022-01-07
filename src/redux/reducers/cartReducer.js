@@ -18,8 +18,6 @@ function cartReducer(state = initialState, action) {
           }
         })
       ) {
-        console.log('find');
-
         return {
           ...state,
           addedPizzas: state.addedPizzas.map((item) => {
@@ -28,7 +26,6 @@ function cartReducer(state = initialState, action) {
               item.size === action.payload.size &&
               item.type === action.payload.type
             ) {
-              console.log('deep find');
               return {
                 ...item,
                 count: item.count + 1,
@@ -78,18 +75,42 @@ function cartReducer(state = initialState, action) {
       };
 
     case 'MINUS_COUNT':
+      const item = state.addedPizzas.find((item) => {
+        if (
+          item.id === action.payload.id &&
+          item.size === action.payload.size &&
+          item.type === action.payload.type &&
+          item.count === 1
+        ) {
+          return item;
+        }
+      });
+      // проверяем, если у этого item count===1, то нам нужно его удалить
+
+      if (item) {
+        const oldAddedPizzas = state.addedPizzas;
+
+        const indexOfEl = oldAddedPizzas.findIndex((pizza) => {
+          if (pizza.id === item.id && pizza.size === item.size && pizza.type === item.type) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+
+        oldAddedPizzas.splice(indexOfEl, 1);
+
+        return {
+          ...state,
+          addedPizzas: oldAddedPizzas,
+          allPriceOfPizzas: state.allPriceOfPizzas - action.payload.price,
+          allCountOfPizzas: state.allCountOfPizzas - 1,
+        };
+      }
+
       return {
         ...state,
         addedPizzas: state.addedPizzas.map((item) => {
-          if (
-            item.id === action.payload.id &&
-            item.size === action.payload.size &&
-            item.type === action.payload.type &&
-            item.count === 1
-          ) {
-            return null;
-          }
-
           if (
             item.id === action.payload.id &&
             item.size === action.payload.size &&
@@ -105,6 +126,36 @@ function cartReducer(state = initialState, action) {
         }),
         allPriceOfPizzas: state.allPriceOfPizzas - action.payload.price,
         allCountOfPizzas: state.allCountOfPizzas - 1,
+      };
+
+    case 'DELETE_PIZZA':
+      const pizza = state.addedPizzas.find((item) => {
+        if (
+          item.id === action.payload.id &&
+          item.size === action.payload.size &&
+          item.type === action.payload.type
+        ) {
+          return item;
+        }
+      });
+
+      const oldAddedPizzas = state.addedPizzas;
+
+      const indexOfEl = oldAddedPizzas.findIndex((item) => {
+        if (pizza.id === item.id && pizza.size === item.size && pizza.type === item.type) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+
+      oldAddedPizzas.splice(indexOfEl, 1);
+
+      return {
+        ...state,
+        addedPizzas: oldAddedPizzas,
+        allPriceOfPizzas: state.allPriceOfPizzas - pizza.price * pizza.count,
+        allCountOfPizzas: state.allCountOfPizzas - pizza.count,
       };
 
     default:
