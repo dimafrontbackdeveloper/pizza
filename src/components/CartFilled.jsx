@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { clearAddedPizzas, deletePizza, minusCount, plusCount } from '../redux/actions/cartActions';
 
 function CartFilled({ addedPizzas }) {
@@ -194,7 +195,7 @@ function CartFilled({ addedPizzas }) {
           </span>
         </div>
         <div class="cart__bottom-buttons">
-          <a href="/" class="button button--outline button--add go-back-btn">
+          <NavLink to="/" className="button button--outline button--add go-back-btn">
             <svg
               width="8"
               height="14"
@@ -211,7 +212,7 @@ function CartFilled({ addedPizzas }) {
             </svg>
 
             <span>Вернуться назад</span>
-          </a>
+          </NavLink>
           <div class="button pay-btn">
             <span>Оплатить сейчас</span>
           </div>

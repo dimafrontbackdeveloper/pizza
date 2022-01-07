@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import EmptyCart from './../img/empty-cart.png';
 
 function CartEmpty() {
@@ -13,9 +14,9 @@ function CartEmpty() {
         Для того, чтобы заказать пиццу, перейди на главную страницу.
       </p>
       <img src={EmptyCart} alt="Empty cart" />
-      <a href="/" class="button button--black">
+      <NavLink to="/" className="button button--black">
         <span>Вернуться назад</span>
-      </a>
+      </NavLink>
     </div>
   );
 }
